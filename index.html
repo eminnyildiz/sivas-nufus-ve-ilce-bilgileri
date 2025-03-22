@@ -9,47 +9,48 @@
 <body>
     <h2>İsime Göre Sıralama</h2>
     <ul id="liste">
-        <li>Akıncılar</li>
-        <li>Altınyayla</li>
-        <li>Divriği</li>
-        <li>Doğanşar</li>
-        <li>Gemerek</li>
-        <li>Gölova</li>
-        <li>Gürün</li>
-        <li>Hafik</li>
-        <li>İmranlı</li>
-        <li>Kangal</li>
-        <li>Koyulhisar</li>
-        <li>Suşehri</li>
-        <li>Şarkışla</li>
-        <li>Ulaş</li>
-        <li>Yıldızeli</li>
-        <li>Zara</li>
+        <li data-ilce="Akıncılar">Akıncılar</li>
+        <li data-ilce="Altınyayla">Altınyayla</li>
+        <li data-ilce="Divriği">Divriği</li>
+        <li data-ilce="Doğanşar">Doğanşar</li>
+        <li data-ilce="Gemerek">Gemerek</li>
+        <li data-ilce="Gölova">Gölova</li>
+        <li data-ilce="Gürün">Gürün</li>
+        <li data-ilce="Hafik">Hafik</li>
+        <li data-ilce="İmranlı">İmranlı</li>
+        <li data-ilce="Kangal">Kangal</li>
+        <li data-ilce="Koyulhisar">Koyulhisar</li>
+        <li data-ilce="Merkez">Merkez</li>
+        <li data-ilce="Suşehri">Suşehri</li>
+        <li data-ilce="Şarkışla">Şarkışla</li>
+        <li data-ilce="Ulaş">Ulaş</li>
+        <li data-ilce="Yıldızeli">Yıldızeli</li>
+        <li data-ilce="Zara">Zara</li>
     </ul>
     <button onclick="siralaAlfabetik(true)">A'dan Z'ye Sırala</button>
     <button onclick="siralaAlfabetik(false)">Z'den A'ya Sırala</button>
     
     <h3>Nüfusa Göre Sıralama</h3>
     <ul id="liste2">
-        <li data-nufus="647000">Toplam Nüfus: 647.000</li>
-        <li data-nufus="392711">Merkezi: 392.711</li>
-        <li data-nufus="37340">Şarkışla: 37.340</li>
-        <li data-nufus="28382">Yıldızeli: 28.382</li>
-        <li data-nufus="24938">Suşehri: 24.938</li>
-        <li data-nufus="21951">Zara: 21.951</li>
-        <li data-nufus="21525">Gemerek: 21.525</li>
-        <li data-nufus="20176">Kangal: 20.176</li>
-        <li data-nufus="17486">Gürün: 17.486</li>
-        <li data-nufus="16204">Divriği: 16.204</li>
-        <li data-nufus="12212">Koyulhisar: 12.212</li>
-        <li data-nufus="9448">Hafik: 9.448</li>
-        <li data-nufus="8453">Altınyayla: 8.453</li>
-        <li data-nufus="8029">Ulaş: 8.029</li>
-        <li data-nufus="7438">İmranlı: 7.438</li>
-        <li data-nufus="4766">Akıncılar: 4.766</li>
-        <li data-nufus="3215">Gölova: 3.215</li>
-        <li data-nufus="2733">Doğanşar: 2.733</li>
+        <li data-ilce="Merkez" data-nufus="392711">Merkez</li>
+        <li data-ilce="Şarkışla" data-nufus="37340">Şarkışla</li>
+        <li data-ilce="Yıldızeli" data-nufus="28382">Yıldızeli</li>
+        <li data-ilce="Suşehri" data-nufus="24938">Suşehri</li>
+        <li data-ilce="Zara" data-nufus="21951">Zara</li>
+        <li data-ilce="Gemerek" data-nufus="21525">Gemerek</li>
+        <li data-ilce="Kangal" data-nufus="20176">Kangal</li>
+        <li data-ilce="Gürün" data-nufus="17486">Gürün</li>
+        <li data-ilce="Divriği" data-nufus="16204">Divriği</li>
+        <li data-ilce="Koyulhisar" data-nufus="12212">Koyulhisar</li>
+        <li data-ilce="Hafik" data-nufus="9448">Hafik</li>
+        <li data-ilce="Altınyayla" data-nufus="8453">Altınyayla</li>
+        <li data-ilce="Ulaş" data-nufus="8029">Ulaş</li>
+        <li data-ilce="İmranlı" data-nufus="7438">İmranlı</li>
+        <li data-ilce="Akıncılar" data-nufus="4766">Akıncılar</li>
+        <li data-ilce="Gölova" data-nufus="3215">Gölova</li>
+        <li data-ilce="Doğanşar" data-nufus="2733">Doğanşar</li>
     </ul>
+
     
     <button onclick="siralaSayisal(false)">Büyükten Küçüğe Sırala</button>
     <button onclick="siralaSayisal(true)">Küçükten Büyüğe Sırala</button>
@@ -70,6 +71,38 @@
             liste.innerHTML = "";
             elemanlar.forEach(eleman => liste.appendChild(eleman));
         }
+
+        // İlçeye tıklanınca yeni sekmede tablo içerisinde nüfus bilgisi göster
+        document.getElementById("liste2").addEventListener("click", function(e) {
+            if (e.target.tagName === "LI") {
+                const ilce = e.target.dataset.ilce;
+                const nufus = e.target.dataset.nufus;
+                const yeniSayfa = window.open("", "_blank");
+                
+                yeniSayfa.document.write(`
+                    <html>
+                    <head>
+                        <title>${ilce} Nüfus Bilgisi</title>
+                        <link rel="stylesheet" href="style.css">
+                    </head>
+                    <body>
+                        <h2>${ilce} Nüfus Bilgisi</h2>
+                        <table>
+                            <tr>
+                                <th>İlçe</th>
+                                <th>Nüfus</th>
+                            </tr>
+                            <tr>
+                                <td>${ilce}</td>
+                                <td>${nufus}</td>
+                            </tr>
+                        </table>
+                    </body>
+                    </html>
+                `);
+                yeniSayfa.document.close();
+            }
+        });
     </script>
 
     <a href="https://www.nufusu.com/il/sivas-nufusu" target="_blank">İl ve İlçelerin Nüfus Bilgileri</a>
